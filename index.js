@@ -18,6 +18,7 @@ async function run() {
     try {
         const ProductsCollection = client.db('resaleMobilePoint').collection('products');
         const bookingsCollection = client.db('resaleMobilePoint').collection('bookings');
+        const usersCollection = client.db('resaleMobilePoint').collection('users');
 
 
         app.get("/products", async (req, res) => {
@@ -60,6 +61,13 @@ async function run() {
             // }
 
             const result = await bookingsCollection.insertOne(booking);
+            res.send(result);
+        });
+
+        app.post('/users', async (req, res) => {
+            const user = req.body;
+            console.log(user);
+            const result = await usersCollection.insertOne(user);
             res.send(result);
         });
 

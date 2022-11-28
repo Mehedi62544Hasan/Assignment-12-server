@@ -33,6 +33,21 @@ async function run() {
             res.send(options);
         });
 
+        app.get('/products/seller/:email', async (req, res) => {
+            // const email = req.query.email;
+            // const query = { email: email };
+
+            let query = {};
+            if (req.query.email) {
+                query = {
+                    email: req.query.email
+                }
+            }
+
+            const products = await ProductsCollection.find(query).toArray();
+            res.send(products);
+        });
+
         app.post('/products', async (req, res) => {
             const addItem = req.body;
             const result = await ProductsCollection.insertOne(addItem);
@@ -104,6 +119,12 @@ async function run() {
             res.send(result);
         });
 
+        app.delete('/users/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: ObjectId(id) };
+            const result = await usersCollection.deleteOne(filter);
+            res.send(result);
+        })
 
 
     }

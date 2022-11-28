@@ -41,7 +41,7 @@ async function run() {
 
 
         app.get('/bookings', async (req, res) => {
-            const email = req.query.email; 
+            const email = req.query.email;
             const query = { email: email };
             const bookings = await bookingsCollection.find(query).toArray();
             res.send(bookings);
@@ -50,7 +50,7 @@ async function run() {
         app.post('/bookings', async (req, res) => {
             const booking = req.body;
             console.log(booking);
-            
+
             // const query = {booking} 
 
             // const alreadyBooked = await bookingsCollection.find(query).toArray();
@@ -62,6 +62,12 @@ async function run() {
 
             const result = await bookingsCollection.insertOne(booking);
             res.send(result);
+        });
+
+        app.get('/users', async (req, res) => {
+            const query = {};
+            const users = await usersCollection.find(query).toArray();
+            res.send(users);
         });
 
         app.post('/users', async (req, res) => {
